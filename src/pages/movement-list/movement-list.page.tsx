@@ -25,8 +25,6 @@ export const MovementListPage: React.FC = () => {
     getAccountInfo().then((headerResult) => {
       const filteredHeaderResult = headerResult.filter((item) => item.id === id);
 
-      console.log('Resultado filtrado de getHeaderAccountInfo:', filteredHeaderResult);
-
       if (filteredHeaderResult.length > 0) {
         setHeaderInfo({ name: filteredHeaderResult[0].name, avalaibleBalance: filteredHeaderResult[0].balance, iban: filteredHeaderResult[0].iban });
       }
