@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { AppLayout } from '@/layouts';
-import { MovementVM } from './movement-list.vm';
+import { AccountVM, MovementVM, createEmptyAccount } from './movement-list.vm';
 import classes from './movement-list.page.module.css';
 import { AccountListTableComponent } from './components/movement-list-table.component';
 import { getAccountInfo, getMovementList } from './api';
-import { mapMovementListFromApiToVm } from './movement-list.mapper';
+import { mapAccountFromApiToVm, mapMovementListFromApiToVm } from './movement-list.mapper';
+import { useParams } from 'react-router-dom';
 
 export const MovementListPage: React.FC = () => {
-  const [accountList, setAccountList] = useState<MovementVM[]>([]);
-  const [id, setId] = useState<string>('');
-  const [headerInfo, setHeaderInfo] = useState<{ avalaibleBalance: number, iban: string, name: string }>({ avalaibleBalance: 0, iban: '', name: '' });
+  const [movementList, setMovementList] = React.useState<MovementVM[]>([]);
+  const [account, setAccount] = React.useState<AccountVM[]>([createEmptyAccount()]);
 
-  useEffect(() => {
-    getMovementList().then((result) => {
-      const mappedResult = mapMovementListFromApiToVm(result);
-      setAccountList(mappedResult);
-      console.log(mappedResult);
+  const { id } = useParams<{ id: string }>();
 
-      if (result.length > 0) {
-        setId(result[0].id);
-      }
-    });
+  React.useEffect(() => {
+    if (id) {
+      getMovementList(id).then((result) => {
+        const mappedResult = mapMovementListFromApiToVm(result);
+        setMovementList(mappedResult);
+      });
 
-    getAccountInfo().then((headerResult) => {
-      const filteredHeaderResult = headerResult.filter((item) => item.id === id);
+      getAccountInfo(id).then((result) => {
+        const mappedResult = mapAccountFromApiToVm(result);
+        setAccount(mappedResult);
+      });
 
-      if (filteredHeaderResult.length > 0) {
-        setHeaderInfo({ name: filteredHeaderResult[0].name, avalaibleBalance: filteredHeaderResult[0].balance, iban: filteredHeaderResult[0].iban });
-      }
-    });
-  }, [id]);
+    }
+  }, []);
 
   return (
     <AppLayout>
@@ -38,14 +35,14 @@ export const MovementListPage: React.FC = () => {
           <h1>Mis Movimientos</h1>
           <div>
             <h2>Saldo Disponible</h2>
-            <span className={`${classes.bold}`}>{headerInfo.avalaibleBalance} €</span>
+            <span className={`${classes.bold}`}>{account[0].avalibleBalance} €</span>
           </div>
         </div>
         <div className={`${classes.underheaderContainer} ${classes.bold}`}>
-          <span>Alias: {headerInfo.name}</span>
-          <span className={classes.bold}>IBAN: {headerInfo.iban}</span>
+          <span>Alias: {account[0].name}</span>
+          <span className={classes.bold}>IBAN: {account[0].iban}</span>
         </div>
-        <AccountListTableComponent movementList={accountList} />
+        <AccountListTableComponent movementList={movementList} />
       </div>
     </AppLayout>
   );

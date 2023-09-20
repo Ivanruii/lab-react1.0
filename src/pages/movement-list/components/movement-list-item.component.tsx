@@ -9,7 +9,7 @@ interface Props {
 export const AccountListItemComponent: React.FC<Props> = (props) => {
   const { movementItem } = props;
 
-  const amountClass = movementItem.amount < 0 ? classes.redText : classes.blackText;
+  const amountClass = parseInt(movementItem.amount) < 0 ? classes.redText : classes.blackText;
 
   return (
     <div className={classes.row}>
