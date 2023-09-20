@@ -1,7 +1,7 @@
 import React from "react";
 import { AccountVm } from "../account-list.vm";
 import classes from "./account-list-item.component.module.css";
-import { Link, generatePath, useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import { appRoutes } from "@/core/router";
 
 const ACTION_NONE = "";
@@ -40,9 +40,7 @@ export const AccountListItemComponent: React.FC<Props> = (props) => {
   return (
     <div className={classes.row}>
       <span className={`${classes.dataCell} ${classes.bold}`}>
-        <Link to={generatePath(appRoutes.movements, { id: accountItem.id })}>
           {accountItem.iban}
-        </Link>
       </span>
       <span className={classes.dataCell}>{accountItem.name}</span>
       <span className={`${classes.dataCell} ${classes.alignRight}`}>
