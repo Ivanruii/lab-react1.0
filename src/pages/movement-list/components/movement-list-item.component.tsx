@@ -14,10 +14,10 @@ export const AccountListItemComponent: React.FC<Props> = (props) => {
   return (
     <div className={classes.row}>
       <span className={`${classes.dataCell}`}>
-        {new Date(movementItem.transaction).toLocaleDateString()}
+        {(movementItem.transaction)}
       </span>
       <span className={`${classes.dataCell} ${classes.alingCenter}`}>
-        {new Date(movementItem.realTransaction).toLocaleDateString()}
+        {(movementItem.realTransaction)}
       </span>
       <span className={`${classes.dataCell} ${classes.bold}`}>
         <span>
