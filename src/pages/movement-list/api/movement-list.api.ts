@@ -6,11 +6,11 @@ const movementsEndPoint = `movements`;
 const accountListEndPoint = `account-list`;
 
 export const getMovementList = (accountId: string): Promise<Movement[]> =>
-  Axios.get<Movement[]>(`${url}/${movementsEndPoint}/${accountId}`).then(
-    ({ data }) => data
-  );
+  Axios.get<Movement[]>(`${url}/${movementsEndPoint}`, {
+    params: { accountId },
+  }).then(({ data }) => data);
 
-export const getAccountInfo = (accountId: string): Promise<Account[]> =>
-  Axios.get<Account[]>(`${url}/${accountListEndPoint}/${accountId}`).then(
+export const getAccountInfo = (accountId: string): Promise<Account> =>
+  Axios.get<Account>(`${url}/${accountListEndPoint}/${accountId}`).then(
     ({ data }) => data
   );

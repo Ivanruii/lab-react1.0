@@ -9,16 +9,15 @@ export const mapMovementListFromApiToVm = (
     description: movement.description,
     amount: movement.amount.toString(),
     balance: movement.balance.toString(),
-    transaction: new Date (movement.transaction).toLocaleDateString(),
-    realTransaction: new Date (movement.realTransaction).toLocaleDateString(),
+    transaction: new Date(movement.transaction).toLocaleDateString(),
+    realTransaction: new Date(movement.realTransaction).toLocaleDateString(),
     accountId: movement.accountId,
   }));
 
 export const mapAccountFromApiToVm = (
-    account: apiModel.Account[]
-): viewModel.AccountVM[] => 
-  account.map((account) => ({
-    avalibleBalance: account.balance,
-    iban: account.iban,
-    name: account.name,
-  }));
+  account: apiModel.Account
+): viewModel.AccountVM => ({
+  avalibleBalance: account.balance,
+  iban: account.iban,
+  name: account.name,
+});

@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 export const MovementListPage: React.FC = () => {
   const [movementList, setMovementList] = React.useState<MovementVM[]>([]);
-  const [accountInfo, setAccountInfo] = React.useState<AccountVM[]>([createEmptyAccount()]);
+  const [accountInfo, setAccountInfo] = React.useState<AccountVM>(createEmptyAccount());
 
   const { id } = useParams<{ id: string }>();
 
@@ -35,12 +35,12 @@ export const MovementListPage: React.FC = () => {
           <h1>Mis Movimientos</h1>
           <div>
             <h2>Saldo Disponible</h2>
-            <span className={`${classes.bold}`}>{accountInfo[0].avalibleBalance} €</span>
+            <span className={`${classes.bold}`}>{accountInfo.avalibleBalance} €</span>
           </div>
         </div>
         <div className={`${classes.underheaderContainer} ${classes.bold}`}>
-          <span>Alias: {accountInfo[0].name}</span>
-          <span className={classes.bold}>IBAN: {accountInfo[0].iban}</span>
+          <span>Alias: {accountInfo.name}</span>
+          <span className={classes.bold}>IBAN: {accountInfo.iban}</span>
         </div>
         <AccountListTableComponent movementList={movementList} />
       </div>
