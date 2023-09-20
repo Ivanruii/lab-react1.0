@@ -41,8 +41,8 @@ describe("mapMovementListFromApiToVm", () => {
         description: "Nómina noviembre",
         amount: "900",
         balance: "1490",
-        transaction: "2019-12-09T21:30:00",
-        realTransaction: "2019-12-09T21:30:00",
+        transaction: new Date("2019-12-09T21:30:00").toLocaleDateString(),
+        realTransaction: new Date("2019-12-09T21:30:00").toLocaleDateString(),
         accountId: "1"
       },
       {
@@ -50,8 +50,8 @@ describe("mapMovementListFromApiToVm", () => {
         description: "Alquiler noviembre",
         amount: "-400",
         balance: "590",
-        transaction: "2019-12-07T11:30:00",
-        realTransaction: "2019-12-08T20:00:10",
+        transaction: new Date("2019-12-07T11:30:00").toLocaleDateString(),
+        realTransaction: new Date("2019-12-08T20:00:10").toLocaleDateString(),
         accountId: "1"
       },  
     ];
